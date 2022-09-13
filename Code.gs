@@ -1,7 +1,7 @@
 
 
 function getSheetsFromFolder() {
-  var date = "09-08"
+  var date = "09-12"
   // gets the folder from google drive
   const fldr = DriveApp.getFolderById("160gR_xnzNnhH4iUSMuH6pHsDXMnQ_kOI");
   Logger.log("got folder");
@@ -47,9 +47,12 @@ function getSheetsFromFolder() {
 
 
 function combineToSingleSS(date) {
+  date = "09-09";
   // calls specific folder in google drive
   const fldr = DriveApp.getFolderById("160gR_xnzNnhH4iUSMuH6pHsDXMnQ_kOI");
   Logger.log("got folder");
+
+
   // gets the converted google sheet files in the specific folder
   const files = fldr.getFiles();
   Logger.log("got files");
@@ -68,6 +71,8 @@ function combineToSingleSS(date) {
     count = count + 1;
     // sleep
     Utilities.sleep(1000);
+
+
     // gets next file
     var file = files.next();
     Logger.log(file);
@@ -102,7 +107,7 @@ function addSheet(id) {
   // gets the first cell 
   var cell = sheet.getRange('A1');
   // add formula to first box 
-  cell.setFormula("=QUERY({'Users (2)'!A1:I;'Users (5)'!A2:I;'Users (4)'!A2:I;'Users (3)'!A2:I;'Users (1)'!A2:I;Users!A2:I},'select* where Col1 is not null')")
+  cell.setFormula('=QUERY({Users1!A1:I;Users2!A2:I;Users3!A2:I;Users4!A2:I;Users5!A2:I;Users6!A2:I},"select* where Col1 is not null")')
   Logger.log("queried")
   addQCalls(id)
 }
@@ -125,13 +130,10 @@ function sortArray(allsheets) {
 
 
 
-
-
-
 function addQCalls(id) {
   id = '132lrtFU6vdCw_2dopv13Amv7aO7_omSqntQyFYZhueM';
   // calls the function to get day of week from the date 
-  var day = 'WEDNESDAY';
+  var day = 'FRIDAY';
   Logger.log(day.slice(0,2));
   var ss = SpreadsheetApp.openById("1b-mq3_5_Od5a56ivR1KqoHZvT24qGe2gBVA2k-sIB2w");
   var hiddenSheet = ss.getSheetByName("444" + day.slice(0, 3));
